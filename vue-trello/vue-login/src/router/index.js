@@ -17,14 +17,14 @@ const requireAuth = (to, from, next) =>{        // 네비게이션 가드 사용
 const routes = [
     { path: '/', component: Home, beforeEnter: requireAuth },
     { path: '/login', component: Login},
-    { path: '/b/:bid', component: Board, children: [        //Board컴포넌트에서 Card 출력 해줘야함
-        { path: 'c/:cid', component: Card }
+    { path: '/b/:bid', component: Board, beforeEnter: requireAuth, children: [        //Board컴포넌트에서 Card 출력 해줘야함
+        { path: 'c/:cid', component: Card, beforeEnter: requireAuth }
     ] },   
     { path: '*', component: NotFound }
 ]
 
 const router = new VueRouter({
-    mode: 'history',
+    mode: 'history',    //vue-router의 기본모드인 hash mode에서 history 모드로 변경
     routes
 })
 
